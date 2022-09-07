@@ -80,7 +80,7 @@ def dis_IG_page():
         st.image(img, width=450)
     with col3:
         st.write("")
-    message = st.text_area("Describe an image first", "Type Here")
+    message = st.text_area("Please write a short description of the image you want to generate.")
     click = st.button("Let's create an image...")
     if click:
         with st.spinner("Wait..."):
@@ -88,6 +88,8 @@ def dis_IG_page():
             result = generator.generate(message)
             result.save_images()
     # load images
+    st.write('---')
+    st.write("last generated image...")
     col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
     with col1:
         st.image(Image.open(cfg.IG_dalle_image_path + '/image-1.png'))
@@ -151,7 +153,7 @@ def set_sidebar():
         if NLP_choice == 'Make a story':
             dis_TG_page()
 
-        elif NLP_choice == 'Can you summarize':
+        elif NLP_choice == 'Discovering':
             dis_SU_page()
 
         elif NLP_choice == 'Poetry generation':

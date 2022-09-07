@@ -38,13 +38,14 @@ class Config:
                         "The purpose of the platform is to share knowledge on how to combining Natural Language Processing and computer vision to " \
                         "creativity domain.\n\r" \
                         "This platform provides \n\r" \
-                        "* **Question and Answering** for answering the question based on the given context.\n\r" \
-                        "* **Story Generation** for auto-generation a story.\n\r" \
-                        "* **Story Summarization** for extracting the core meaning of a story."
+                        "* **Make a story** Just type in a phrase, and the AI will make up a whole tale.\n\r" \
+                        "* **Discovering** The heart of your tale might be waiting to be discovered by AI. \n\r" \
+                        "* **Poetry generation** Compose a sonnet in the manner of William Shakespeare. \n\r" \
+                        "* **Turn language into Art** create plausible images for a great variety of sentences"
 
         # Story Generation page
         self.TG_title = "Make a story..."
-        self.TG_des = "One of the cool functions of this demo is to complete your story. The function is designed based " \
+        self.TG_des = "Let AI generate creative stories and plots for you. The function is designed based " \
                       "on the **OpenAI GPT-2** model which is a causal **transformer** " \
                       "pre-trained language modelling on 40GB of text model. You can type a snippet in the following " \
                       "box and see what happens :)"
@@ -61,7 +62,7 @@ class Config:
                         "Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei and Ilya Sutskever."
 
         # Summarization page
-        self.SU_title = "Story Summarization - Extract key information from the given text"
+        self.SU_title = "Discovering - Extract key information from the given text"
         self.SU_des = "Summarization is the process of summarizing the information in large texts for quicker consumption." \
                       "In our work, we leverage the **BART** model. It is an encoder-decoder model. It converts all language problems " \
                       "into a text-to-text format. You can type a snippet in the following " \
@@ -97,7 +98,7 @@ class Config:
 
         # sidebar
         self.nav_menu = ['Home', 'Natural Language Processing', 'Computer Vision']
-        self.NLP_menu = ['Make a story', 'Can you summarize', 'Poetry generation', 'Turn language into Art']
+        self.NLP_menu = ['Make a story', 'Discovering', 'Poetry generation', 'Turn language into Art']
         self.CV_menu = ['DeepFake', 'Other']
         self.contr_info = "This an open source project and you are very welcome to contribute your awesome comments, " \
                           "questions and pull requests to the source code (TBC). "
