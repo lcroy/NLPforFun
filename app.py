@@ -1,19 +1,12 @@
-"""
-## NLP Application
-
-DESCRIPTION
-
-Author: [Chen Li](https://vbn.aau.dk/en/persons/142294)
-Source: [Github](https://github.com/TBC)
-"""
 import streamlit as st
 
 from PIL import Image
-from numpy.random import seed
 from configuration import Config
-from main.SA.sen_twitter import TwitterClient
-from main.QA.bert import QA
 from main.SU.summarization import *
+from main.PM.trmForPoem import *
+from main.IG.craiyon.craiyon import Craiyon
+
+import requests
 
 # config file defines the necessary parameters
 cfg = Config()
@@ -22,43 +15,20 @@ def dis_home_page():
     st.title(cfg.home_title)
     st.markdown(cfg.home_des)
 
-def dis_QA_page():
-    st.title(cfg.QA_title)
-    st.markdown(cfg.QA_des)
-    img = Image.open(cfg.QA_image_path)
-    st.image(img, width=700)
-    st.write('---')
-    message_context = st.text_area("Give some context first", "Type Here")
-    message_question = st.text_area("You may ask me a question now", "Type Here")
-    click = st.button("Show me answer")
-    if click:
-        with st.spinner("Wait..."):
-            qa = QA(cfg.QA_model_path)
-            answer = qa.predict(message_context.title(), message_question.title())
-        st.success(answer['answer'])
-    # model details
-    st.write('---')
-    st.header("Model Details")
-    st.subheader("Information-retrieval based Qeustion Answer")
-    st.markdown(cfg.QA_process)
-    st.subheader("Model Architecture")
-    st.markdown(cfg.QA_model_overview)
-    img = Image.open(cfg.QA_bert_model_image_path)
-    st.image(img, width=550)
-    st.write('---')
-    st.header("Reference")
-    st.info(cfg.QA_about)
-
-
 def dis_TG_page():
     st.title(cfg.TG_title)
     st.markdown(cfg.TG_des)
     img = Image.open(cfg.TG_image_path)
-    st.image(img, width=200)
+    col1, col2, col3 = st.columns([2, 6, 1])
+    with col1:
+        st.write("")
+    with col2:
+        st.image(img, width=400)
+    with col3:
+        st.write("")
     message = st.text_area("Enter your snippet", "Type Here")
-    click = st.button("Generate Response")
+    click = st.button("Let's make a story...")
     generator = pipeline('text-generation', model='gpt2')
-    seed(42)
     if click:
         with st.spinner("Wait..."):
             sentence = generator(str(message.title()), max_length=100, num_return_sequences=1)
@@ -77,54 +47,71 @@ def dis_TG_page():
     st.info(cfg.TG_about)
 
 
-def dis_SA_page():
-    st.title(cfg.SA_title)
-    st.markdown(cfg.SA_des)
-    img = Image.open(cfg.SA_image_path)
-    st.image(img, width=700)
-    st.header("Analysis Twitter Topic.")
-    message = st.text_area("Let's play with tweet first","Type Here")
-    click = st.button("Sentiment Detection for tweet")
+def dis_PM_page():
+    st.title(cfg.PM_title)
+    st.markdown(cfg.PM_des)
+    img = Image.open(cfg.PM_image_path)
+    col1, col2, col3 = st.columns([1, 6, 1])
+    with col1:
+        st.write("")
+    with col2:
+        st.image(img, width=450)
+    with col3:
+        st.write("")
+    message = st.text_area("Enter your snippet", "Type Here")
+    click = st.button("Let's create a poem...")
+    max = st.sidebar.slider('Select max', 50, 500, step=10, value=150)
+    max_sequence_len = 12
     if click:
         with st.spinner("Wait..."):
-            sa = TwitterClient()
-            ptweetsPer, ntweetsPer, netweetsPer, ptweets, ntweets, netweets = sa.run(message.title())
-            # percentage results
-            per_results = ptweetsPer + '\n\r' + ntweetsPer + '\n\r' + netweetsPer
-            # details results
-            pt = [item['text'] for item in ptweets]
-            nt = [item['text'] for item in ntweets]
-            net = [item['text'] for item in netweets]
+            sentence = gen_poem(message, max_sequence_len, max)
+        # st.write(text)
+        st.success(sentence)
 
-        st.success("Result Distribution: \n\r" + per_results)
-        st.text("Positive Tweets:")
-        st.info(pt)
-        st.text("Negative Tweets: ")
-        st.info(nt)
-        st.text("Neutral Tweets:")
-        st.info(net)
-    st.write('---')
-    st.header("Analysis sentences.")
-    sentence = st.text_area("Let's give a sentence", "Type Here")
-    click_sen = st.button("Sentiment Detection for sentence")
-    if click_sen:
+
+def dis_IG_page():
+    st.title(cfg.IG_title)
+    st.markdown(cfg.IG_des)
+    img = Image.open(cfg.IG_image_path)
+    col1, col2, col3 = st.columns([1, 6, 1])
+    with col1:
+        st.write("")
+    with col2:
+        st.image(img, width=450)
+    with col3:
+        st.write("")
+    message = st.text_area("Describe an image first", "Type Here")
+    click = st.button("Let's create an image...")
+    if click:
         with st.spinner("Wait..."):
-            classifier = pipeline("sentiment-analysis")
-            results = classifier([sentence.title()])
+            generator = Craiyon()  # Instantiates the api wrapper
+            result = generator.generate(message)
+            result.save_images()
+    # load images
+    col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
+    with col1:
+        st.image(Image.open(cfg.IG_dalle_image_path + '/image-1.png'))
+    with col2:
+        st.image(Image.open(cfg.IG_dalle_image_path + '/image-2.png'))
+    with col3:
+        st.image(Image.open(cfg.IG_dalle_image_path + '/image-3.png'))
+    with col4:
+        st.image(Image.open(cfg.IG_dalle_image_path + '/image-4.png'))
 
-        st.success("The sentence is predicted as a " + str(results[0]['label']) + " and the score is " + str(results[0]['score']))
 
 
 def dis_SU_page():
     st.title(cfg.SU_title)
     st.markdown(cfg.SU_des)
     img = Image.open(cfg.SU_image_path)
-    st.image(img, width=500)
+
+
+    st.image(img, width=700)
 
     summarizer = load_summarizer()
 
     message = st.text_area("Please enter your text here", "Type Here")
-    click = st.button("Generate Summarization")
+    click = st.button("Let's summarize it...")
 
     max = st.sidebar.slider('Select max', 50, 500, step=10, value=150)
     min = st.sidebar.slider('Select min', 10, 450, step=10, value=50)
@@ -156,32 +143,26 @@ def set_sidebar():
     # set the navigation menu
     st.sidebar.header('Navigation')
     nav_choice = st.sidebar.radio('', cfg.nav_menu)
-    # NLP_choice = st.sidebar.selectbox("Select Activity", cfg.NLP_menu)
-    # CV_choice = st.sidebar.selectbox("Select Activity", cfg.CV_menu)
-    # RL_choice = st.sidebar.selectbox("Select Activity", cfg.RL_menu)
     # change the navigation
     if nav_choice == 'Home':
         dis_home_page()
     elif nav_choice == 'Natural Language Processing':
         NLP_choice = st.sidebar.selectbox("Select Activity", cfg.NLP_menu)
-        if NLP_choice == 'Text Generation':
+        if NLP_choice == 'Make a story':
             dis_TG_page()
 
-        elif NLP_choice == 'Sentiment Analysis':
-            dis_SA_page()
-
-        elif NLP_choice == 'Question & Answering':
-            dis_QA_page()
-
-        elif NLP_choice == 'Summarization':
+        elif NLP_choice == 'Can you summarize':
             dis_SU_page()
+
+        elif NLP_choice == 'Poetry generation':
+            dis_PM_page()
+
+        elif NLP_choice == 'Turn language into Art':
+            dis_IG_page()
 
     elif nav_choice == 'Computer Vision':
         CV_choice = st.sidebar.selectbox("Select Activity", cfg.CV_menu)
-        if CV_choice == 'Facial Recognition':
-            dis_home_page()
-
-        elif CV_choice == 'Object Detection':
+        if CV_choice == 'DeepFake':
             dis_home_page()
 
         elif CV_choice == 'Other':

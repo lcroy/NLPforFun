@@ -7,11 +7,9 @@ class Config:
         self.project_path = os.path.dirname(os.path.abspath(__file__))
         # image path
         self.image_path = os.path.join(self.project_path, 'image')
-        ## face path
-        self.botx_face_path = os.path.join(self.image_path, 'JS.jpg')
 
         ## Story_Generation_image path
-        self.TG_image_path = os.path.join(self.image_path, 'TG.jpg')
+        self.TG_image_path = os.path.join(self.image_path, 'TG.png')
         ## Text_Generation_architecture_image path
         self.TG_architecture_image_path = os.path.join(self.image_path, 'gpt.png')
 
@@ -20,13 +18,12 @@ class Config:
         ## Summarization_image_architecture_image path
         self.SU_architecture_image_path = os.path.join(self.image_path, 'bart.png')
 
-        ## Question Answering image path
-        self.QA_image_path = os.path.join(self.image_path, 'qa_process.jpg')
-        ## Bert model Question Answering image path
-        self.QA_bert_model_image_path = os.path.join(self.image_path, 'bert_model.jpg')
+        ## Poem_Generation_image path
+        self.PM_image_path = os.path.join(self.image_path, 'poem.png')
 
-        ## Sentiment_Analysis_image path
-        self.SA_image_path = os.path.join(self.image_path, 'Sentiment-Analysis.jpg')
+        ## Image_Generation_image path
+        self.IG_image_path = os.path.join(self.image_path, 'dalle.png')
+        self.IG_dalle_image_path = os.path.join(self.project_path, 'generated')
 
         # models path
         self.model_path = os.path.join(self.project_path, 'models')
@@ -42,12 +39,11 @@ class Config:
                         "creativity domain.\n\r" \
                         "This platform provides \n\r" \
                         "* **Question and Answering** for answering the question based on the given context.\n\r" \
-                        "* **Sentiment Analysis** for understanding user's feeling.\n\r" \
                         "* **Story Generation** for auto-generation a story.\n\r" \
                         "* **Story Summarization** for extracting the core meaning of a story."
 
         # Story Generation page
-        self.TG_title = "Story Generation"
+        self.TG_title = "Make a story..."
         self.TG_des = "One of the cool functions of this demo is to complete your story. The function is designed based " \
                       "on the **OpenAI GPT-2** model which is a causal **transformer** " \
                       "pre-trained language modelling on 40GB of text model. You can type a snippet in the following " \
@@ -85,32 +81,23 @@ class Config:
                         "Marjan Ghazvininejad, Abdelrahman Mohamed, Omer Levy, Ves Stoyanov and Luke Zettlemoyer on 29 Oct, 2019."
 
 
-        # Question Answering page
-        self.QA_title = "Question Answering - Understand context and provide right answer"
-        self.QA_des = "The quest for knowledge is deeply human, and so it is not surprising that practically as soon " \
-                      "as there were computers we were asking them questions. Most question answering systems focus on" \
-                      " **factoid questions**, questions that can be answered with simple facts expressed in short texts."
-        self.QA_process = "The approach used here is information-retrieval-based factoid " \
-                          "question-answering system. The goal of information retrieval based question answering is " \
-                          "to answer a user’s question by finding short text segments on the web or some other " \
-                          "collection of documentsThe key processes are question processing, passage retrieval and " \
-                          "ranking, and answer extraction. "
-        self.QA_model_overview = "We use **BERT-based Question Answering**. The power of contextual embeddings allow " \
-                                 "question answering models based on BERT contextual embeddings and the transformer " \
-                                 "architecture to achieve even higher accuracy."
-        self.QA_about = "Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. (2019). [BERT: Pretraining of deep " \
-                        "bidirectional transformers for language understanding](https://arxiv.org/abs/1810.04805). In " \
-                        "NAACL HLT 2019, 4171–4186. "
+        # Poem page
+        self.PM_title = "Automatic Poetry Generator"
+        self.PM_des = "Have you thought about using AI to generate a poem? In this demonstration, we design a neural network model, **Bidirectional-LSTM**, which is trained " \
+                      "on William Shakespeare’s Sonnets. Simply enter a few words and our computer will generate the remainder of the poem for you. \n\r" \
+                      "**Sonnets** \n\r" \
+                      "From fairest creatures we desire increase, That thereby beauty's rose might never die,\n\r" \
+                      "But, as the riper should by time decease, His tender heir might bear his memory..." \
 
-        # Sentiment Analysis page
-        self.SA_title = "Sentiment Analysis - Understand your feeling"
-        self.SA_des = "What does people feel about a certain topic? How can we know the operator's feeling when " \
-                      "he/her works with a robot? Can we tell the emotion of the operator? \n\r We are looking into " \
-                      "those questions and try to leverage the modern neural network to help us understand your feeeling."
+        # image page
+        self.IG_title = "Turn Natural Language into Art."
+        self.IG_des = "This demonstration shows how to use SOTA [DALL·E 2](https://openai.com/dall-e-2/), a new AI system, to create realistic images and art from a description in natural language." \
+                    "DALL·E 2 can create original, realistic images and art from a description. It can combine concepts, attributes, and styles." \
+                    "We use API from [craiyon](https://www.craiyon.com/) to generate images from description."
 
         # sidebar
         self.nav_menu = ['Home', 'Natural Language Processing', 'Computer Vision']
-        self.NLP_menu = ['Question & Answering', 'Sentiment Analysis', 'Story Generation', 'Story Summarization', 'Poem Creation', 'Image Generation']
+        self.NLP_menu = ['Make a story', 'Can you summarize', 'Poetry generation', 'Turn language into Art']
         self.CV_menu = ['DeepFake', 'Other']
         self.contr_info = "This an open source project and you are very welcome to contribute your awesome comments, " \
                           "questions and pull requests to the source code (TBC). "
