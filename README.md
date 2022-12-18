@@ -52,4 +52,18 @@ We leverage the BART model, an encoder-decoder model, to summarize the informati
 #### 2.2.5 main->TG folder
 OpenAI GPT-2 model is leveraged to generate creative stories and plots for you.
 
+## 3. Run application
+Open the terminal, enter the project folder and enter the following command. 
+```sh
+streamlit run app.py
+```
+You will see something like the following:
+```sh
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8502
+  Network URL: http://192.168.87.115:8502
+```
+Then open your webbrowser and enter the corresponding URL. Have fun :) 
+
 
