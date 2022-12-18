@@ -1,4 +1,4 @@
-# Natural language Processing for fun
+# Streamlit for Natural language Processing APP
 This is a demonstration platform for showing how to use Natural Language Processing and Computer Vision to build creative applications implemented through [Streamlit](https://streamlit.io/).
 It shows that Streamlit can be used to convert python data scripts into shareable web apps. It is pure python and does not require front-end experience.
 
