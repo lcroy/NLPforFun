@@ -8,7 +8,6 @@ from tensorflow.keras.preprocessing.text import *
 import numpy as np
 import pickle
 import io
-import matplotlib.pyplot as plt
 
 def load_file(file_path):
     data = open(file_path).read()

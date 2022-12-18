@@ -97,9 +97,9 @@ class Config:
                     "We use API from [craiyon](https://www.craiyon.com/) to generate images from description."
 
         # sidebar
-        self.nav_menu = ['Home', 'Natural Language Processing', 'Computer Vision']
+        self.nav_menu = ['Home', 'AI Applications']
         self.NLP_menu = ['Make a story', 'Discovering', 'Poetry generation', 'Turn language into Art']
-        self.CV_menu = ['DeepFake', 'Other']
+        # self.CV_menu = ['DeepFake', 'Other']
         self.contr_info = "This an open source project and you are very welcome to contribute your awesome comments, " \
                           "questions and pull requests to the source code (TBC). "
         self.abt_info = 'This app is maintained by Chen Li. You can learn more about me at [VBN](https://vbn.aau.dk/en/persons/142294) of Aalborg University. '

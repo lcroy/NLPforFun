@@ -148,7 +148,7 @@ def set_sidebar():
     # change the navigation
     if nav_choice == 'Home':
         dis_home_page()
-    elif nav_choice == 'Natural Language Processing':
+    elif nav_choice == 'AI Applications':
         NLP_choice = st.sidebar.selectbox("Select Activity", cfg.NLP_menu)
         if NLP_choice == 'Make a story':
             dis_TG_page()
@@ -162,13 +162,13 @@ def set_sidebar():
         elif NLP_choice == 'Turn language into Art':
             dis_IG_page()
 
-    elif nav_choice == 'Computer Vision':
-        CV_choice = st.sidebar.selectbox("Select Activity", cfg.CV_menu)
-        if CV_choice == 'DeepFake':
-            dis_home_page()
-
-        elif CV_choice == 'Other':
-            dis_home_page()
+    # elif nav_choice == 'Computer Vision':
+    #     CV_choice = st.sidebar.selectbox("Select Activity", cfg.CV_menu)
+    #     if CV_choice == 'DeepFake':
+    #         dis_home_page()
+    #
+    #     elif CV_choice == 'Other':
+    #         dis_home_page()
 
     st.sidebar.header('Contributes')
     st.sidebar.info(cfg.contr_info)
